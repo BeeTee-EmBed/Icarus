@@ -14,6 +14,12 @@ const int tempButton = D5;                                                      
 const int maxButton = D6;                                                                                           //this input button switches the LCD screen to display the temperatures
 const int thermocouplePin = WKP;
 
+const int numValues = 10;
+double values[numValues];
+int arrIndex = 0;
+double total = 0;
+double average = 0;
+
 double supplyVoltage = 3.3;                                                                                         //the supply voltage for the different compentents is 3.3 volts
 int adcLevel = 4095;                                                                                                //as the ADC is a 12-bit ADC, has 0-4095 discrete levels of values
 double ambientTemp = 0;
@@ -56,7 +62,10 @@ void setup()   {
     display.display();                                                                                              //displays all text in the buffer and clears the buffer
     delay(1000);
     display.clearDisplay();
-  
+
+    for (int thisValue = 0; thisValue < numValues; thisValue++) {
+        values[thisValue] = 0;
+    }
 }
 
 void loop() {
@@ -159,8 +168,20 @@ double getThermistorVoltage() {
 double getShortCurrent() {
   double shuntResistance = 0.08;
   double gain = 500.0;
-  double cellVoltage = (analogRead(refCellOutput) >> 2) * 4 * supplyVoltage / adcLevel;                                                      //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
-  return ((cellVoltage / gain) / shuntResistance);
+
+  total -= values[arrIndex];
+  double cellVoltage = analogRead(refCellOutput) * supplyVoltage / adcLevel;                                                      //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
+  
+  values[arrIndex] = cellVoltage;
+  total += cellVoltage;
+  arrIndex++;
+  if (arrIndex >= numValues) {
+      arrIndex = 0;
+  }
+
+  average = total / numValues;
+  
+  return ((average / gain) / shuntResistance);
 }
 
 //finds the max irradiance and angle associated with that irradiance when rotating the instrument about the x-axis for 5 seconds
