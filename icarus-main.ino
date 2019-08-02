@@ -134,12 +134,12 @@ double getThermistorTemp(double thermistorVoltage) {
   int voltDivResistor = 10000;                                                                                      //our resistror used in the voltage divider is a 10k Ohm resistor
   double thermB = 3428;                                                                                             //example value; 
   int refTemp = 25;                                                                                                 //the reference temperature is give nas 25 degrees Celsius
-
   double thermValue, thermResistance, temp;
+  double kelvinConversion = 273.15;
 
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
                                                                                                                     //gets the thermistor resistance by using the 
-  temp = thermB * (refTemp + 273.15) / (log(thermResistance / voltDivResistor) * (refTemp + 273.15) + thermB) - 273.15;
+  temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
   temp = round(temp * 10) / 10;                                                                                     //this rounds the temp value to one decimal place
   return temp;
 }
@@ -147,7 +147,7 @@ double getThermistorTemp(double thermistorVoltage) {
 //reads the analog input from the TMP36 analog sensor, and returns the temperature in Celsius
 double getAmbientTemp() {
   double analogTempValue = analogRead(ambientOutput);
-  return ((analogTempValue * 3.3 / 4096) / .03 - 50);                                                               //this is the temperature equation for the TMP36 sensor
+  return ((analogTempValue * supplyVoltage / adcLevel) / .03 - 50);                                                               //this is the temperature equation for the TMP36 sensor
 }
 
 //gets the voltage reading from the thermistor
@@ -159,7 +159,7 @@ double getThermistorVoltage() {
 double getShortCurrent() {
   double shuntResistance = 0.08;
   double gain = 500.0;
-  double cellVoltage = analogRead(refCellOutput) * 3.3 / 4096;                                                      //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
+  double cellVoltage = (analogRead(refCellOutput) >> 2) * 4 * supplyVoltage / adcLevel;                                                      //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
   return ((cellVoltage / gain) / shuntResistance);
 }
 
