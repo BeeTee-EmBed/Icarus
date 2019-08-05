@@ -1,7 +1,11 @@
 #include <SparkFunMMA8452Q.h>
 #include <math.h>
+#include <algorithm>
+#include <array>
 #include "Adafruit_GFX.h"
 #include "Adafruit_PCD8544.h"
+
+using namespace std;
 
 Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            //initializes the display object for the LCD screen
 MMA8452Q accel;                                                                                                     //initializes the accelerometer object
@@ -14,11 +18,13 @@ const int tempButton = D5;                                                      
 const int maxButton = D6;                                                                                           //this input button switches the LCD screen to display the temperatures
 const int thermocouplePin = WKP;
 
-const int numValues = 10;
+const int numValues = 11;
 double values[numValues];
+double sortedValues[numValues];
 int arrIndex = 0;
 double total = 0;
-double average = 0;
+double median = 0;
+const int medianLocation = 5;
 
 double supplyVoltage = 3.3;                                                                                         //the supply voltage for the different compentents is 3.3 volts
 int adcLevel = 4095;                                                                                                //as the ADC is a 12-bit ADC, has 0-4095 discrete levels of values
@@ -170,7 +176,7 @@ double getShortCurrent() {
   double gain = 500.0;
 
   total -= values[arrIndex];
-  double cellVoltage = analogRead(refCellOutput) * supplyVoltage / adcLevel;                                                      //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
+  double cellVoltage = analogRead(refCellOutput) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
   
   values[arrIndex] = cellVoltage;
   total += cellVoltage;
@@ -178,10 +184,11 @@ double getShortCurrent() {
   if (arrIndex >= numValues) {
       arrIndex = 0;
   }
-
-  average = total / numValues;
   
-  return ((average / gain) / shuntResistance);
+  copy(begin(values), end(values), begin(sortedValues));
+  sort(begin(sortedValues), end(sortedValues));                                                                                 //the built in sort from  <algorithm> is O(n * log n) complexity, and sorts from the beginning of the array to the end
+  
+  return ((sortedValues[medianLocation] / gain) / shuntResistance);
 }
 
 //finds the max irradiance and angle associated with that irradiance when rotating the instrument about the x-axis for 5 seconds
