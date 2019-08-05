@@ -1,9 +1,10 @@
-#include <SparkFunMMA8452Q.h>
 #include <math.h>
 #include <algorithm>
 #include <array>
 #include "Adafruit_GFX.h"
 #include "Adafruit_PCD8544.h"
+#include <SparkFunMMA8452Q.h>
+
 
 using namespace std;
 
@@ -121,7 +122,7 @@ void loop() {
         findMax();
     }
     display.display();
-    delay(1000);
+    delay(250);
     display.clearDisplay();
 }
 
