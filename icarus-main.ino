@@ -83,12 +83,12 @@ void loop() {
     
     if (wifiFlag == true) {
         Particle.publish("Thermistor_Temperature", String(thermistorTemp, 2));                                      //stores the thermistor temperature variable in the cloud
-        Particle.publish("Ambient_Temperature", String(ambientTemp,2));                                             //stores the ambient temperature variable in the cloud
-        Particle.publish("Irradiance", String(irradiance,2));                                                       //stores the irradiance variable in the cloud
-        Particle.publish("Incline", String(theta,2));                                                               //sores the incline degree in the cloud
+        Particle.publish("Ambient_Temperature", String(ambientTemp, 1));                                             //stores the ambient temperature variable in the cloud
+        Particle.publish("Irradiance", String(irradiance,1));                                                       //stores the irradiance variable in the cloud
+        Particle.publish("Incline", String(theta,1));                                                               //sores the incline degree in the cloud
     }
     
-    theta = accel.x / adcRange * degreeRange;                                                                       //scales the ADC value read from accelerometer to an angle measurement in positive
+    theta = accel.x / adcRange * degreeRange * -1;                                                      //scales the ADC value read from accelerometer to an angle measurement in positive, times -1 to account for orientation
     irradiance = round(irradiance * 10) / 10;                                                                       //rounds the degrees to the nearest tenth
     theta = round(theta * 10) / 10;
     ambientTemp = round(ambientTemp * 10) / 10;
@@ -104,7 +104,7 @@ void loop() {
     }
     else if (digitalRead(maxButton) == 0) {
         screen = "max";
-    }
+    }sad[fk[sf]]
     
     setScreen(screen);
     
