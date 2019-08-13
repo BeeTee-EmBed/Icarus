@@ -198,7 +198,7 @@ void findMax() {
     }
     
     display.println("Max: " + String(maxIrradiance, 0));
-    display.println("Angle: " + String(maxAngle, 0));
+    display.println("Angle: " + String(maxAngle, 0) + (char)247);
     display.display();
     delay(10000);
     display.clearDisplay();
@@ -225,15 +225,15 @@ void setScreen() {
     switch (screen) {                                       //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
         case MAIN:
             mainScreen = true;
-            display.println("Degrees: " + String(theta, 0));                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
+            display.println("Degrees: " + String(theta, 0) + (char)247);                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
             display.println();
             display.println(String(irradiance, 0) + "  W/m^2");
             break;
         case TEMPERATURE:
             tempScreen = true;
-            display.println("Temp: " + String(ambientTemp, 0) + '\370' + "C");
+            display.println("Temp: " + String(ambientTemp, 0) + " " + (char)247 + "C");
             display.println();
-            display.println("Therm: " + String(thermistorTemp, 0) + '\370' + "C");
+            display.println("Therm: " + String(thermistorTemp, 0) + " " + (char)247 + "C");
             break;
         case MAX:
             maxScreen = true;
