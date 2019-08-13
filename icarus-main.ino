@@ -8,22 +8,22 @@
 
 using namespace std;
 
-Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            //initializes the display object for the LCD screen
-MMA8452Q accel;                                                                                                     //initializes the accelerometer object
+Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            
+MMA8452Q accel;                                                                                             
 
-static const int thermistorInput = A0;                                                                                     //the thermistor is connected via ADC pin A0
-static const int ambientOutput = A1;                                                                                       //the ambient temp sensor is connected via ADC pin A1
-static const int refCellOutput = A6;                                                                                       //the reference cell is connected via ADC pin A2
-static const int mainButton = D4;                                                                                          //this input button turns the wifi on and off
-static const int tempButton = D5;                                                                                          //this input button switches the LCD back to the main display screen
-static const int maxButton = D6;                                                                                           //this input button switches the LCD screen to display the temperatures
+static const int thermistorInput = A0;                                                                                   
+static const int ambientOutput = A1;                                                                                     
+static const int refCellOutput = A6;                                                                                      
+static const int mainButton = D4;                                                                                          
+static const int tempButton = D5;                                                                                          
+static const int maxButton = D6;                                                                                           
 static const int thermocouplePin = WKP;
 
 static const int numValues = 11;
 static const int medianLocation = 5;
 static const int factorRound = 10;
-static const double supplyVoltage = 3.3;                                                                                         //the supply voltage for the different compentents is 3.3 volts
-static const int adcLevel = 4095;                                                                                           //as the ADC is a 12-bit ADC, has 0-4095 discrete levels of values
+static const double supplyVoltage = 3.3;                                                                                        
+static const int adcLevel = 4095;                                                                                        
 static const double adcRange = -1024;
 
 
@@ -35,7 +35,7 @@ double median = 0;
 double ambientTemp = 0;
 double thermistorTemp = 0.0;
 double irradiance = 0.0;
-double theta = 0.0;                                                                                                 //the degree value for the Y-axis of the Icarus instrument
+double theta = 0.0;                                                                                                
 int degreeRange = 90;
 double maxAngle = 0.0;
 double maxIrradiance = 0.0;
@@ -47,47 +47,42 @@ bool tempScreen = false;
 bool maxScreen = false;
 enum menuLists {MAIN = 1, TEMPERATURE, MAX};
 
-
-SYSTEM_MODE(SEMI_AUTOMATIC);                                                                                        //enables manual control of wifi on or off
+//enables manual control of wifi on or off
+SYSTEM_MODE(SEMI_AUTOMATIC);                                                                                       
 
 void setup()   {
-    pinMode(A0, INPUT);                                                                                             //this is for the thermistor
-    pinMode(A1, INPUT);                                                                                             //this is for the TMP36 ambient temp sensor
-    pinMode(A6, INPUT);                                                                                             //reference cell input assignment
+    pinMode(A0, INPUT);                                                                                             
+    pinMode(A1, INPUT);                                                                                             
+    pinMode(A6, INPUT);                                                                                             
     pinMode(D4, INPUT);
     pinMode(D5, INPUT);
     pinMode(D6, INPUT);
     pinMode(D7, INPUT);
     pinMode(WKP, INPUT);
     
-    accel.begin(SCALE_2G, ODR_1);                                                                                   //begins the accelerometer object, with a scale of +-2g's, and a 1Hz refresh rate
+    accel.begin(SCALE_2G, ODR_1);
     
-    Serial.begin(9600);                                                                                             //begins the serial
-    display.begin();                                                                                                //initializes the display
-    display.setContrast(55);                                                                                        //changes the contrast to ease reading
-    display.display();                                                                                              //show opening screen ni the buffer
-    delay(1000);
-    display.clearDisplay();                                                                                         // clears the screen and buffer
-    display.setTextSize(1);                                                                                         //changes text size in buffer
-    display.setTextColor(BLACK);                                                                                    //sets the text color
-    display.setCursor(0,0);                                                                                         //sets the location of printing to 0,0 pixel
-    display.display();                                                                                              //displays all text in the buffer and clears the buffer
-    delay(1000);
-    display.clearDisplay();
+    Serial.begin(9600);                                                                                            
+    display.begin();                                                                                           
+    display.setContrast(55);                                                                                      
+    display.setTextSize(1);                                                                                        
+    display.setTextColor(BLACK);                                                                                  
+    display.setCursor(0,0);                                                                                     
 
+    //fills the array for moving average with zeroes
     for (int thisValue = 0; thisValue < numValues; thisValue++) {
         values[thisValue] = 0;
     }
 }
 
 void loop() {
-    accel.read();                                                                                                   //reads the accelerometer data
+    accel.read();                                                                                                  
     irradiance = getIrradiance();
     thermistorTemp = getThermistorTemp(getThermistorVoltage());
     ambientTemp = getAmbientTemp();
-    theta = accel.x / adcRange * degreeRange * -1;                                                      //scales the ADC value read from accelerometer to an angle measurement in positive, times -1 to account for orientation
+    theta = accel.x / adcRange * degreeRange * -1;                                                    
     
-    irradiance = round(irradiance * factorRound) / factorRound;                                                                       //rounds the degrees to the nearest tenth
+    irradiance = round(irradiance * factorRound) / factorRound;                                     
     theta = round(theta * factorRound) / factorRound;
     ambientTemp = round(ambientTemp * factorRound) / factorRound;
     thermistorTemp = round(thermistorTemp * factorRound) / factorRound;
@@ -107,29 +102,27 @@ double getIrradiance() {
   int refThermTemp = 25;
   int refIrradiance = 1000;
 
-  thermistorVoltage = getThermistorVoltage();                                                                       //gets the voltage across the thermistor
-  thermistorTemp = getThermistorTemp(thermistorVoltage);                                                            //gets the temperature of the thermistor by passing in the current voltage across the thermistor
-  measuredShortCurrent = getShortCurrent();                                                                         //gets the short-circuit current across the solar cell
+  thermistorVoltage = getThermistorVoltage();                                                                       
+  thermistorTemp = getThermistorTemp(thermistorVoltage);                                                            
+  measuredShortCurrent = getShortCurrent();                                                                        
 
   irradiance = refIrradiance * measuredShortCurrent / referenceShortCurrent * (1 - tempCoefficient * (thermistorTemp - refThermTemp));
-                                                                                                                    //uses the measured current across the reference cell, the voltage from the cell,
-                                                                                                                    //and the reference and measured temperature from the thermistor to calculate irradiance
-  irradiance = round(irradiance * factorRound) / factorRound;                                                                         //rounds irradiance off to one decimal point
+                                                                                                                    
+  irradiance = round(irradiance * factorRound) / factorRound;                                                      
   return irradiance;
 }
 
 //reads the analog input from the thermistor, and returns the temperature in Celsius
 double getThermistorTemp(double thermistorVoltage) {
-  int voltDivResistor = 10000;                                                                                      //our resistror used in the voltage divider is a 10k Ohm resistor
-  double thermB = 3428;                                                                                             //example value; 
-  int refTemp = 25;                                                                                                 //the reference temperature is give nas 25 degrees Celsius
+  int voltDivResistor = 10000;                                                                                     
+  double thermB = 3428;                                                                                           
+  int refTemp = 25;                                                                                              
   double thermValue, thermResistance, temp;
   double kelvinConversion = 273.15;
 
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
-                                                                                                                    //gets the thermistor resistance by using the 
   temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
-  temp = round(temp * factorRound) / factorRound;                                                                                     //this rounds the temp value to one decimal place
+  temp = round(temp * factorRound) / factorRound;                                                                      
   return temp;
 }
 
@@ -212,7 +205,7 @@ void setScreen() {
     bool tempScreen = false;
     bool maxScreen = false;
     
-    if (0 == digitalRead(mainButton)) {                                                                             //these if/else if conditionals check for if a button is pressed, and if so 
+    if (0 == digitalRead(mainButton)) {
         screen = MAIN;
     }
     else if (0 == digitalRead(tempButton)) {
@@ -221,11 +214,11 @@ void setScreen() {
     else if (0 == digitalRead(maxButton)) {
         screen = MAX;
     }
-   
-    switch (screen) {                                       //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
+    //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
+    switch (screen) {                                      
         case MAIN:
             mainScreen = true;
-            display.println("Degrees: " + String(theta, 0) + (char)247);                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
+            display.println("Degrees: " + String(theta, 0) + (char)247);                                                           
             display.println();
             display.println(String(irradiance, 0) + "  W/m^2");
             break;
@@ -241,13 +234,3 @@ void setScreen() {
             break;
     }
 }
-
-//checks if wifiFlag is true (enabled); if so, publishes data to particle cloud storage for access
-void publishData() {
-     if (wifiFlag == true) {
-        Particle.publish("Thermistor_Temperature", String(thermistorTemp, 2));                                      //stores the thermistor temperature variable in the cloud
-        Particle.publish("Ambient_Temperature", String(ambientTemp, 1));                                             //stores the ambient temperature variable in the cloud
-        Particle.publish("Irradiance", String(irradiance,1));                                                       //stores the irradiance variable in the cloud
-        Particle.publish("Incline", String(theta,1));                                                               //sores the incline degree in the cloud
-    }
-} 
