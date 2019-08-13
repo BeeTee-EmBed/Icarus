@@ -114,7 +114,7 @@ double getIrradiance() {
   irradiance = refIrradiance * measuredShortCurrent / referenceShortCurrent * (1 - tempCoefficient * (thermistorTemp - refThermTemp));
                                                                                                                     //uses the measured current across the reference cell, the voltage from the cell,
                                                                                                                     //and the reference and measured temperature from the thermistor to calculate irradiance
-  irradiance = round(irradiance * 10) / 10;                                                                         //rounds irradiance off to one decimal point
+  irradiance = round(irradiance * factorRound) / factorRound;                                                                         //rounds irradiance off to one decimal point
   return irradiance;
 }
 
@@ -129,7 +129,7 @@ double getThermistorTemp(double thermistorVoltage) {
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
                                                                                                                     //gets the thermistor resistance by using the 
   temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
-  temp = round(temp * 10) / 10;                                                                                     //this rounds the temp value to one decimal place
+  temp = round(temp * factorRound) / factorRound;                                                                                     //this rounds the temp value to one decimal place
   return temp;
 }
 
@@ -146,8 +146,8 @@ double getThermistorVoltage() {
 
 //gets the short circuit current reading from the reference cell
 double getShortCurrent() {
-  double shuntResistance = 0.08;
-  double gain = 500.0;
+  const double shuntResistance = 0.08;
+  const double gain = 500.0;
 
   total -= values[arrIndex];
   double cellVoltage = analogRead(refCellOutput) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
