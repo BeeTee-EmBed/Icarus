@@ -106,17 +106,8 @@ double getIrradiance() {
   int refIrradiance = 1000;
 
   thermistorVoltage = getThermistorVoltage();
-  
-
-  thermistorTemp = getThermistorTemp(thermistorVoltage); 
-  
-
-
+  thermistorTemp = getThermistorTemp(thermistorVoltage);
   measuredShortCurrent = getShortCurrent();   
-  
-
-
-
   irradiance = refIrradiance * measuredShortCurrent / referenceShortCurrent * (1 - tempCoefficient * (thermistorTemp - refThermTemp));
                                                                                                                     
   irradiance = round(irradiance * factorRound) / factorRound;                                                      
@@ -155,7 +146,6 @@ double getShortCurrent() {
 
   total -= values[arrIndex];
   double cellVoltage = analogRead(REFERENCE_CELL_OUTPUT) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
-  
   values[arrIndex] = cellVoltage;
   total += cellVoltage;
   arrIndex++;
