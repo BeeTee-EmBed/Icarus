@@ -11,20 +11,20 @@ using namespace std;
 Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            //initializes the display object for the LCD screen
 MMA8452Q accel;                                                                                                     //initializes the accelerometer object
 
-const int thermistorInput = A0;                                                                                     //the thermistor is connected via ADC pin A0
-const int ambientOutput = A1;                                                                                       //the ambient temp sensor is connected via ADC pin A1
-const int refCellOutput = A6;                                                                                       //the reference cell is connected via ADC pin A2
-const int mainButton = D4;                                                                                          //this input button turns the wifi on and off
-const int tempButton = D5;                                                                                          //this input button switches the LCD back to the main display screen
-const int maxButton = D6;                                                                                           //this input button switches the LCD screen to display the temperatures
-const int thermocouplePin = WKP;
+static const int thermistorInput = A0;                                                                                     //the thermistor is connected via ADC pin A0
+static const int ambientOutput = A1;                                                                                       //the ambient temp sensor is connected via ADC pin A1
+static const int refCellOutput = A6;                                                                                       //the reference cell is connected via ADC pin A2
+static const int mainButton = D4;                                                                                          //this input button turns the wifi on and off
+static const int tempButton = D5;                                                                                          //this input button switches the LCD back to the main display screen
+static const int maxButton = D6;                                                                                           //this input button switches the LCD screen to display the temperatures
+static const int thermocouplePin = WKP;
 
-const int numValues = 11;
-const int medianLocation = 5;
-const int factorRound = 10;
-const double supplyVoltage = 3.3;                                                                                         //the supply voltage for the different compentents is 3.3 volts
-const int adcLevel = 4095;                                                                                           //as the ADC is a 12-bit ADC, has 0-4095 discrete levels of values
-const double adcRange = -1024;
+static const int numValues = 11;
+static const int medianLocation = 5;
+static const int factorRound = 10;
+static const double supplyVoltage = 3.3;                                                                                         //the supply voltage for the different compentents is 3.3 volts
+static const int adcLevel = 4095;                                                                                           //as the ADC is a 12-bit ADC, has 0-4095 discrete levels of values
+static const double adcRange = -1024;
 
 
 double values[numValues];
@@ -250,4 +250,4 @@ void publishData() {
         Particle.publish("Irradiance", String(irradiance,1));                                                       //stores the irradiance variable in the cloud
         Particle.publish("Incline", String(theta,1));                                                               //sores the incline degree in the cloud
     }
-}
+} 
