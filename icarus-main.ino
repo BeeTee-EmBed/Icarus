@@ -119,11 +119,13 @@ double getThermistorTemp(double thermistorVoltage) {
   int voltDivResistor = 10000;                                                                                     
   double thermB = 3428;                                                                                           
   int refTemp = 25;                                                                                              
-  double thermValue, thermResistance, temp;
-  double kelvinConversion = 273.15;
+  double thermValue;
+  double thermResistance;
+  double temp;
+  const double KELVIN_CONVERSION = 273.15;
 
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
-  temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
+  temp = thermB * (refTemp + KELVIN_CONVERSION) / (log(thermResistance / voltDivResistor) * (refTemp + KELVIN_CONVERSION) + thermB) - KELVIN_CONVERSION;
   temp = round(temp * factorRound) / factorRound;                                                                      
   return temp;
 }
