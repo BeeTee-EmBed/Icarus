@@ -231,9 +231,9 @@ void setScreen() {
             break;
         case TEMPERATURE:
             tempScreen = true;
-            display.println("Temp: " + String(ambientTemp, 0) + '\370');
+            display.println("Temp: " + String(ambientTemp, 0) + '\370' + "C");
             display.println();
-            display.println("Therm: " + String(thermistorTemp, 0) + '\370');
+            display.println("Therm: " + String(thermistorTemp, 0) + '\370' + "C");
             break;
         case MAX:
             maxScreen = true;
