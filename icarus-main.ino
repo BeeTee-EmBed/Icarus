@@ -73,20 +73,22 @@ void setup()   {
     for (int thisValue = 0; thisValue < numValues; thisValue++) {
         values[thisValue] = 0;
     }
+    display.display();
+    delay(2000);
+    display.clearDisplay();
 }
 
 void loop() {
-    accel.read();                                                                                                  
+    accel.read();    
     irradiance = getIrradiance();
-    thermistorTemp = getThermistorTemp(getThermistorVoltage());
     ambientTemp = getAmbientTemp();
-    theta = accel.x / adcRange * degreeRange * -1;                                                    
+    theta = accel.x / adcRange * degreeRange * -1;         
     
     irradiance = round(irradiance * factorRound) / factorRound;                                     
     theta = round(theta * factorRound) / factorRound;
     ambientTemp = round(ambientTemp * factorRound) / factorRound;
     thermistorTemp = round(thermistorTemp * factorRound) / factorRound;
-    
+
     setScreen();
     
     display.display();
@@ -96,15 +98,24 @@ void loop() {
 
 //returns the value of the irradiance in Watts/m^2, as a double to one decimal point
 double getIrradiance() {
-  double thermistorVoltage, measuredShortCurrent;
+  double thermistorVoltage;
+  double measuredShortCurrent;
   double referenceShortCurrent = 0.0586;
   double tempCoefficient = 0.0000265;
   int refThermTemp = 25;
   int refIrradiance = 1000;
 
-  thermistorVoltage = getThermistorVoltage();                                                                       
-  thermistorTemp = getThermistorTemp(thermistorVoltage);                                                            
-  measuredShortCurrent = getShortCurrent();                                                                        
+  thermistorVoltage = getThermistorVoltage();
+  
+
+  thermistorTemp = getThermistorTemp(thermistorVoltage); 
+  
+
+
+  measuredShortCurrent = getShortCurrent();   
+  
+
+
 
   irradiance = refIrradiance * measuredShortCurrent / referenceShortCurrent * (1 - tempCoefficient * (thermistorTemp - refThermTemp));
                                                                                                                     
