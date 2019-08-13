@@ -11,13 +11,13 @@ using namespace std;
 Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            
 MMA8452Q accel;                                                                                             
 
-static const int thermistorInput = A0;                                                                                   
-static const int ambientOutput = A1;                                                                                     
-static const int refCellOutput = A6;                                                                                      
-static const int mainButton = D4;                                                                                          
-static const int tempButton = D5;                                                                                          
-static const int maxButton = D6;                                                                                           
-static const int thermocouplePin = WKP;
+static const int THERMISTOR_INPUT = A0;                                                                                   
+static const int AMBIENT_OUTPUT = A1;                                                                                     
+static const int REFERENCE_CELL_OUTPUT = A6;                                                                                      
+static const int MAIN_BUTTON = D4;                                                                                          
+static const int TEMPERATURE_BUTTON = D5;                                                                                          
+static const int MAX_BUTTON = D6;                                                                                           
+static const int THERMOCOUPLE_PIN = WKP;
 
 static const int numValues = 11;
 static const int medianLocation = 5;
@@ -139,13 +139,13 @@ double getThermistorTemp(double thermistorVoltage) {
 
 //reads the analog input from the TMP36 analog sensor, and returns the temperature in Celsius
 double getAmbientTemp() {
-  double analogTempValue = analogRead(ambientOutput);
+  double analogTempValue = analogRead(AMBIENT_OUTPUT);
   return ((analogTempValue * supplyVoltage / adcLevel) / .03 - 50);                                                               //this is the temperature equation for the TMP36 sensor
 }
 
 //gets the voltage reading from the thermistor
 double getThermistorVoltage() {
-  return analogRead(thermistorInput) * supplyVoltage / adcLevel;
+  return analogRead(THERMISTOR_INPUT) * supplyVoltage / adcLevel;
 }
 
 //gets the short circuit current reading from the reference cell
@@ -154,7 +154,7 @@ double getShortCurrent() {
   const double gain = 500.0;
 
   total -= values[arrIndex];
-  double cellVoltage = analogRead(refCellOutput) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
+  double cellVoltage = analogRead(REFERENCE_CELL_OUTPUT) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
   
   values[arrIndex] = cellVoltage;
   total += cellVoltage;
@@ -216,13 +216,13 @@ void setScreen() {
     bool tempScreen = false;
     bool maxScreen = false;
     
-    if (0 == digitalRead(mainButton)) {
+    if (0 == digitalRead(MAIN_BUTTON)) {
         screen = MAIN;
     }
-    else if (0 == digitalRead(tempButton)) {
+    else if (0 == digitalRead(TEMPERATURE_BUTTON)) {
         screen = TEMPERATURE;
     }
-    else if (0 == digitalRead(maxButton)) {
+    else if (0 == digitalRead(MAX_BUTTON)) {
         screen = MAX;
     }
     //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
