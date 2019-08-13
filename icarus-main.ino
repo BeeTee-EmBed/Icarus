@@ -82,36 +82,14 @@ void loop() {
     irradiance = getIrradiance();
     thermistorTemp = getThermistorTemp(getThermistorVoltage());
     ambientTemp = getAmbientTemp();
-    
-    if (wifiFlag == true) {
-        Particle.publish("Thermistor_Temperature", String(thermistorTemp, 2));                                      //stores the thermistor temperature variable in the cloud
-        Particle.publish("Ambient_Temperature", String(ambientTemp, 1));                                             //stores the ambient temperature variable in the cloud
-        Particle.publish("Irradiance", String(irradiance,1));                                                       //stores the irradiance variable in the cloud
-        Particle.publish("Incline", String(theta,1));                                                               //sores the incline degree in the cloud
-    }
-    
     theta = accel.x / adcRange * degreeRange * -1;                                                      //scales the ADC value read from accelerometer to an angle measurement in positive, times -1 to account for orientation
+    
     irradiance = round(irradiance * 10) / 10;                                                                       //rounds the degrees to the nearest tenth
     theta = round(theta * 10) / 10;
     ambientTemp = round(ambientTemp * 10) / 10;
     thermistorTemp = round(thermistorTemp * 10) / 10;
     
     setScreen();
-    /*
-    if (mainScreen == true) {
-        display.println("Degrees: " + String(theta, 2));                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
-        display.println();
-        display.println(String(irradiance, 0) + "  W/m^2");
-    }
-    else if (tempScreen == true) {
-        display.println("Temp: " + String(ambientTemp, 2));
-        display.println();
-        display.println("Therm: " + String(thermistorTemp, 2));
-    }
-    else if (maxScreen == true) {
-        findMax();
-    }
-    */
     
     display.display();
     delay(250);
@@ -188,24 +166,15 @@ double getShortCurrent() {
 void findMax() {
     display.println("Please rotate Icarus around its X-axis in 5...");
     display.display();
-    delay(3000);
+    delay(4000);
     display.clearDisplay();
-    display.println("4...");
-    display.display();
-    delay(1000);
-    display.clearDisplay();
-    display.println("3...");
-    display.display();
-    delay(1000);
-    display.clearDisplay();
-    display.println("2...");
-    display.display();
-    delay(1000);
-    display.clearDisplay();
-    display.println("1...");
-    display.display();
-    delay(1000);
-    display.clearDisplay();
+    
+    for (int i = 4; i > 0; i--) {
+        display.println("" + String(i) + "...");
+        display.display();
+        delay(1000);
+        display.clearDisplay();
+    }
     display.println("Calculating...");
     display.display();
     
@@ -224,8 +193,8 @@ void findMax() {
         delay(250);
     }
     
-    display.println("Max: " + String(maxIrradiance, 2));
-    display.println("Angle: " + String(maxAngle, 2));
+    display.println("Max: " + String(maxIrradiance, 0));
+    display.println("Angle: " + String(maxAngle, 0));
     display.display();
     delay(10000);
     display.clearDisplay();
@@ -266,5 +235,15 @@ void setScreen() {
             maxScreen = true;
             findMax();
             break;
+    }
+}
+
+//checks if wifiFlag is true (enabled); if so, publishes data to particle cloud storage for access
+void publishData() {
+     if (wifiFlag == true) {
+        Particle.publish("Thermistor_Temperature", String(thermistorTemp, 2));                                      //stores the thermistor temperature variable in the cloud
+        Particle.publish("Ambient_Temperature", String(ambientTemp, 1));                                             //stores the ambient temperature variable in the cloud
+        Particle.publish("Irradiance", String(irradiance,1));                                                       //stores the irradiance variable in the cloud
+        Particle.publish("Incline", String(theta,1));                                                               //sores the incline degree in the cloud
     }
 }
