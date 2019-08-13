@@ -42,6 +42,8 @@ bool wifiFlag = false;
 bool mainScreen = true;
 bool tempScreen = false;
 bool maxScreen = false;
+int screen = 1;
+enum menuLists {MAIN = 1, TEMPERATURE, MAX};
 
 SYSTEM_MODE(SEMI_AUTOMATIC);                                                                                        //enables manual control of wifi on or off
 
@@ -94,24 +96,12 @@ void loop() {
     ambientTemp = round(ambientTemp * 10) / 10;
     thermistorTemp = round(thermistorTemp * 10) / 10;
     
-    String screen = "";
-    
-    if (digitalRead(mainButton) == 0) {                                                                             //these if/else if conditionals check for if a button is pressed, and if so 
-        screen = "main";
-    }
-    else if (digitalRead(tempButton) == 0) {
-        screen = "temp";
-    }
-    else if (digitalRead(maxButton) == 0) {
-        screen = "max";
-    }sad[fk[sf]]
-    
-    setScreen(screen);
-    
+    setScreen();
+    /*
     if (mainScreen == true) {
         display.println("Degrees: " + String(theta, 2));                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
         display.println();
-        display.println(String(irradiance, 1) + "  W/m^2");
+        display.println(String(irradiance, 0) + "  W/m^2");
     }
     else if (tempScreen == true) {
         display.println("Temp: " + String(ambientTemp, 2));
@@ -121,6 +111,8 @@ void loop() {
     else if (maxScreen == true) {
         findMax();
     }
+    */
+    
     display.display();
     delay(250);
     display.clearDisplay();
@@ -237,24 +229,42 @@ void findMax() {
     display.display();
     delay(10000);
     display.clearDisplay();
-    setScreen("main");
+    screen = MAIN;
+    setScreen();
 }
 
 //compares the string parameter passed in, and depending on the value will set the boolean flags to correspond with the button pressed
-void setScreen(String screen) {
-    if (screen == "main") {
-        mainScreen = true;
-        tempScreen = false;
-        maxScreen = false;
+void setScreen() {
+    bool mainScreen = false;
+    bool tempScreen = false;
+    bool maxScreen = false;
+    
+    if (0 == digitalRead(mainButton)) {                                                                             //these if/else if conditionals check for if a button is pressed, and if so 
+        screen = MAIN;
     }
-    else if (screen == "temp") {
-        mainScreen = false;
-        tempScreen = true;
-        maxScreen = false;
+    else if (0 == digitalRead(tempButton)) {
+        screen = TEMPERATURE;
     }
-    else if (screen == "max") {
-        mainScreen = false;
-        tempScreen = false;
-        maxScreen = true;
+    else if (0 == digitalRead(maxButton)) {
+        screen = MAX;
+    }
+   
+    switch (screen) {                                       //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
+        case MAIN:
+            mainScreen = true;
+            display.println("Degrees: " + String(theta, 0));                                                            //truncates the extraneos zeroes in the float, so as to not imply a greater degree of precision
+            display.println();
+            display.println(String(irradiance, 0) + "  W/m^2");
+            break;
+        case TEMPERATURE:
+            tempScreen = true;
+            display.println("Temp: " + String(ambientTemp, 0));
+            display.println();
+            display.println("Therm: " + String(thermistorTemp, 0));
+            break;
+        case MAX:
+            maxScreen = true;
+            findMax();
+            break;
     }
 }
