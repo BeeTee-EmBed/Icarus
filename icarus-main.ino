@@ -122,10 +122,10 @@ double getThermistorTemp(double thermistorVoltage) {
   double thermValue;
   double thermResistance;
   double temp;
-  const double KELVIN_CONVERSION = 273.15;
+  const double kelvinConversion = 273.15;
 
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
-  temp = thermB * (refTemp + KELVIN_CONVERSION) / (log(thermResistance / voltDivResistor) * (refTemp + KELVIN_CONVERSION) + thermB) - KELVIN_CONVERSION;
+  temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
   temp = round(temp * factorRound) / factorRound;                                                                      
   return temp;
 }
@@ -221,7 +221,7 @@ void setScreen() {
     switch (screen) {                                      
         case MAIN:
             mainScreen = true;
-            display.println("Degrees: " + String(theta, 0) + (char)247);                                                           
+            display.println("Angle: " + String(theta, 0) + (char)247);                                                           
             display.println();
             display.println(String(irradiance, 0) + "  W/m^2");
             break;
