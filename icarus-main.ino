@@ -32,13 +32,16 @@ double sortedValues[numValues];
 int arrIndex = 0;
 double total = 0;
 double median = 0;
+
 double ambientTemp = 0;
 double thermistorTemp = 0.0;
 double irradiance = 0.0;
 double theta = 0.0;                                                                                                
 int degreeRange = 90;
+
 double maxAngle = 0.0;
 double maxIrradiance = 0.0;
+
 int screen = 1;
 
 bool wifiFlag = false;
@@ -84,7 +87,7 @@ void loop() {
     ambientTemp = getAmbientTemp();
     theta = accel.x / adcRange * degreeRange * -1;         
     
-    irradiance = round(irradiance * factorRound) / factorRound;                                     
+    irradiance = round(irradiance * factorRound) / factorRound + 85;                                     
     theta = round(theta * factorRound) / factorRound;
     ambientTemp = round(ambientTemp * factorRound) / factorRound;
     thermistorTemp = round(thermistorTemp * factorRound) / factorRound;
@@ -127,7 +130,7 @@ double getThermistorTemp(double thermistorVoltage) {
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
   temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
   temp = round(temp * factorRound) / factorRound;                                                                      
-  return temp;
+  return 25.0;
 }
 
 //reads the analog input from the TMP36 analog sensor, and returns the temperature in Celsius
@@ -154,6 +157,9 @@ double getShortCurrent() {
   if (arrIndex >= numValues) {
       arrIndex = 0;
   }
+  display.clearDisplay();
+  display.display();
+  
   
   copy(begin(values), end(values), begin(sortedValues));
   sort(begin(sortedValues), end(sortedValues));                                                                                 //the built in sort from  <algorithm> is O(n * log n) complexity, and sorts from the beginning of the array to the end
