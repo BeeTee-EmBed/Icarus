@@ -1,3 +1,4 @@
+#include <Adafruit_MAX31855.h>
 #include <math.h>
 #include <algorithm>
 #include <array>
@@ -5,10 +6,10 @@
 #include "Adafruit_PCD8544.h"
 #include <SparkFunMMA8452Q.h>
 
-
 using namespace std;
 
-Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);                                                            
+Adafruit_PCD8544 display = Adafruit_PCD8544(SS, D2, D3);         
+
 MMA8452Q accel;                                                                                             
 
 static const int THERMISTOR_INPUT = A0;                                                                                   
@@ -16,8 +17,7 @@ static const int AMBIENT_OUTPUT = A1;
 static const int REFERENCE_CELL_OUTPUT = A6;                                                                                      
 static const int MAIN_BUTTON = D4;                                                                                          
 static const int TEMPERATURE_BUTTON = D5;                                                                                          
-static const int MAX_BUTTON = D6;                                                                                           
-static const int THERMOCOUPLE_PIN = WKP;
+static const int MAX_BUTTON = D6;         
 
 static const int numValues = 11;
 static const int medianLocation = 5;
@@ -28,10 +28,10 @@ static const double adcRange = -1024;
 
 
 double values[numValues];
-double sortedValues[numValues];
 int arrIndex = 0;
 double total = 0;
 double median = 0;
+double thermocoupleTemp = 0.0;
 
 double ambientTemp = 0;
 double thermistorTemp = 0.0;
@@ -44,7 +44,6 @@ double maxIrradiance = 0.0;
 
 int screen = 1;
 
-bool wifiFlag = false;
 bool mainScreen = true;
 bool tempScreen = false;
 bool maxScreen = false;
@@ -55,7 +54,7 @@ SYSTEM_MODE(SEMI_AUTOMATIC);
 
 void setup()   {
     pinMode(A0, INPUT);                                                                                             
-    pinMode(A1, INPUT);                                                                                             
+    pinMode(A1, INPUT);     
     pinMode(A6, INPUT);                                                                                             
     pinMode(D4, INPUT);
     pinMode(D5, INPUT);
@@ -85,7 +84,7 @@ void loop() {
     accel.read();    
     irradiance = getIrradiance();
     ambientTemp = getAmbientTemp();
-    theta = accel.x / adcRange * degreeRange * -1;         
+    theta = accel.x / adcRange * degreeRange * -1; 
     
     irradiance = round(irradiance * factorRound) / factorRound + 85;                                     
     theta = round(theta * factorRound) / factorRound;
@@ -130,7 +129,7 @@ double getThermistorTemp(double thermistorVoltage) {
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
   temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
   temp = round(temp * factorRound) / factorRound;                                                                      
-  return 25.0;
+  return temp;
 }
 
 //reads the analog input from the TMP36 analog sensor, and returns the temperature in Celsius
@@ -159,12 +158,8 @@ double getShortCurrent() {
   }
   display.clearDisplay();
   display.display();
-  
-  
-  copy(begin(values), end(values), begin(sortedValues));
-  sort(begin(sortedValues), end(sortedValues));                                                                                 //the built in sort from  <algorithm> is O(n * log n) complexity, and sorts from the beginning of the array to the end
-  
-  return ((sortedValues[medianLocation] / gain) / shuntResistance);
+
+  return (((total / numValues) / gain) / shuntResistance);
 }
 
 //finds the max irradiance and angle associated with that irradiance when rotating the instrument about the x-axis for 5 seconds
@@ -227,7 +222,7 @@ void setScreen() {
     switch (screen) {                                      
         case MAIN:
             mainScreen = true;
-            display.println("Angle: " + String(theta, 0) + (char)247);                                                           
+            display.println("Angle: " + String(theta, 0) + (char)247);  
             display.println();
             display.println(String(irradiance, 0) + "  W/m^2");
             break;
