@@ -1,0 +1,863 @@
+EESchema Schematic File Version 4
+LIBS:Prototypedesign1-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Irradiance Prototype 1"
+Date "2019-07-08"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 "Alex Polyanskiy"
+$EndDescr
+$Comp
+L Device:C C1
+U 1 1 5D1A6FA9
+P 1550 2500
+F 0 "C1" H 1665 2546 50  0000 L CNN
+F 1 "10uF" H 1665 2455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 1588 2350 50  0001 C CNN
+F 3 "~" H 1550 2500 50  0001 C CNN
+	1    1550 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 5D1A8983
+P 3600 2450
+F 0 "C2" H 3715 2496 50  0000 L CNN
+F 1 "47uF" H 3715 2405 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 3638 2300 50  0001 C CNN
+F 3 "~" H 3600 2450 50  0001 C CNN
+	1    3600 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C4
+U 1 1 5D1A994A
+P 6050 2350
+F 0 "C4" H 6165 2396 50  0000 L CNN
+F 1 ".1uF" H 6165 2305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6088 2200 50  0001 C CNN
+F 3 "~" H 6050 2350 50  0001 C CNN
+	1    6050 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5D1AA19E
+P 3400 6100
+F 0 "R2" H 3470 6146 50  0000 L CNN
+F 1 ".08" H 3470 6055 50  0000 L CNN
+F 2 "Resistor_SMD:R_2512_6332Metric_Pad1.52x3.35mm_HandSolder" V 3330 6100 50  0001 C CNN
+F 3 "~" H 3400 6100 50  0001 C CNN
+	1    3400 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5D1AAC70
+P 1200 6450
+F 0 "R1" H 1270 6496 50  0000 L CNN
+F 1 "10k" H 1270 6405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 1130 6450 50  0001 C CNN
+F 3 "~" H 1200 6450 50  0001 C CNN
+	1    1200 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5D1AB7B0
+P 9750 2400
+F 0 "R4" H 9680 2354 50  0000 R CNN
+F 1 "1k" H 9680 2445 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9680 2400 50  0001 C CNN
+F 3 "~" H 9750 2400 50  0001 C CNN
+	1    9750 2400
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:L L1
+U 1 1 5D1AC109
+P 1900 1700
+F 0 "L1" V 2090 1700 50  0000 C CNN
+F 1 "100uH" V 1999 1700 50  0000 C CNN
+F 2 "Prototypedesign1:Inductor100uH" H 1900 1700 50  0001 C CNN
+F 3 "~" H 1900 1700 50  0001 C CNN
+	1    1900 1700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Diode:MBR0520LT D1
+U 1 1 5D1ACEEE
+P 2650 1700
+F 0 "D1" H 2650 1484 50  0000 C CNN
+F 1 "MBR0520LT" H 2650 1575 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 2650 1525 50  0001 C CNN
+F 3 "http://www.onsemi.com/pub_link/Collateral/MBR0520LT1-D.PDF" H 2650 1700 50  0001 C CNN
+	1    2650 1700
+	-1   0    0    1   
+$EndComp
+$Comp
+L Prototypedesign1extra:XC6372 U2
+U 1 1 5D1B3338
+P 2650 3300
+F 0 "U2" H 2928 3471 50  0000 L CNN
+F 1 "XC6372" H 2928 3380 50  0000 L CNN
+F 2 "Prototypedesign1:XC6372" H 2250 3700 50  0001 C CNN
+F 3 "" H 2250 3700 50  0001 C CNN
+	1    2650 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:TMP36 U4
+U 1 1 5D1B4959
+P 6800 1800
+F 0 "U4" H 6800 2265 50  0000 C CNN
+F 1 "TMP36" H 6800 2174 50  0000 C CNN
+F 2 "Prototypedesign1:SOT-23-5_HandSoldering-TMP36" H 6475 2075 50  0001 C CNN
+F 3 "" H 6475 2075 50  0001 C CNN
+	1    6800 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:KXOB25-14X1F U1
+U 1 1 5D1B7D3F
+P 2450 6150
+F 0 "U1" V 2404 6328 50  0000 L CNN
+F 1 "KXOB25-14X1F" V 2495 6328 50  0000 L CNN
+F 2 "Prototypedesign1:KXOB25" H 2200 6350 50  0001 C CNN
+F 3 "" H 2200 6350 50  0001 C CNN
+	1    2450 6150
+	0    1    1    0   
+$EndComp
+$Comp
+L Prototypedesign1extra:NXFT15XH103 RT1
+U 1 1 5D1B9FCE
+P 1200 5500
+F 0 "RT1" V 1154 5628 50  0000 L CNN
+F 1 "NXFT15XH103" V 1245 5628 50  0000 L CNN
+F 2 "Prototypedesign1:Thermistor" H 900 5700 50  0001 C CNN
+F 3 "" H 900 5700 50  0001 C CNN
+	1    1200 5500
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 5D1BD7CB
+P 1000 3200
+F 0 "#PWR01" H 1000 2950 50  0001 C CNN
+F 1 "GND" H 1005 3027 50  0000 C CNN
+F 2 "" H 1000 3200 50  0001 C CNN
+F 3 "" H 1000 3200 50  0001 C CNN
+	1    1000 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR02
+U 1 1 5D1BE5AC
+P 1200 4600
+F 0 "#PWR02" H 1200 4450 50  0001 C CNN
+F 1 "+3.3V" H 1215 4773 50  0000 C CNN
+F 2 "" H 1200 4600 50  0001 C CNN
+F 3 "" H 1200 4600 50  0001 C CNN
+	1    1200 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR07
+U 1 1 5D1BFAC1
+P 5650 1150
+F 0 "#PWR07" H 5650 1000 50  0001 C CNN
+F 1 "+3.3V" H 5665 1323 50  0000 C CNN
+F 2 "" H 5650 1150 50  0001 C CNN
+F 3 "" H 5650 1150 50  0001 C CNN
+	1    5650 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR05
+U 1 1 5D1C0185
+P 4050 4900
+F 0 "#PWR05" H 4050 4750 50  0001 C CNN
+F 1 "+3.3V" H 4065 5073 50  0000 C CNN
+F 2 "" H 4050 4900 50  0001 C CNN
+F 3 "" H 4050 4900 50  0001 C CNN
+	1    4050 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5D1C0FA9
+P 6050 2800
+F 0 "#PWR08" H 6050 2550 50  0001 C CNN
+F 1 "GND" H 6055 2627 50  0000 C CNN
+F 2 "" H 6050 2800 50  0001 C CNN
+F 3 "" H 6050 2800 50  0001 C CNN
+	1    6050 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR010
+U 1 1 5D1C140E
+P 7700 2100
+F 0 "#PWR010" H 7700 1850 50  0001 C CNN
+F 1 "GND" H 7705 1927 50  0000 C CNN
+F 2 "" H 7700 2100 50  0001 C CNN
+F 3 "" H 7700 2100 50  0001 C CNN
+	1    7700 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR03
+U 1 1 5D1C3368
+P 1200 7050
+F 0 "#PWR03" H 1200 6800 50  0001 C CNN
+F 1 "GND" H 1205 6877 50  0000 C CNN
+F 2 "" H 1200 7050 50  0001 C CNN
+F 3 "" H 1200 7050 50  0001 C CNN
+	1    1200 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1000 2300 1000 1700
+Wire Wire Line
+	1000 1700 1550 1700
+Wire Wire Line
+	1550 1700 1550 2350
+Connection ~ 1550 1700
+Wire Wire Line
+	1550 1700 1750 1700
+Wire Wire Line
+	1550 2650 1550 3200
+Wire Wire Line
+	1550 3200 1000 3200
+Wire Wire Line
+	2400 2850 2400 2650
+Wire Wire Line
+	2400 2650 1950 2650
+Wire Wire Line
+	1950 2650 1950 3200
+Wire Wire Line
+	1950 3200 1550 3200
+Connection ~ 1550 3200
+Wire Wire Line
+	2550 3500 2550 3800
+Wire Wire Line
+	2550 3800 3350 3800
+Wire Wire Line
+	3350 3800 3350 1700
+Wire Wire Line
+	3350 1700 3600 1700
+Wire Wire Line
+	2800 1700 3350 1700
+Connection ~ 3350 1700
+Wire Wire Line
+	3600 1700 3600 2300
+Connection ~ 3600 1700
+Wire Wire Line
+	3600 1700 3850 1700
+$Comp
+L power:GND #PWR04
+U 1 1 5D1C9A7A
+P 3600 2950
+F 0 "#PWR04" H 3600 2700 50  0001 C CNN
+F 1 "GND" H 3605 2777 50  0000 C CNN
+F 2 "" H 3600 2950 50  0001 C CNN
+F 3 "" H 3600 2950 50  0001 C CNN
+	1    3600 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3600 2600 3600 2950
+Wire Wire Line
+	5650 1150 5650 1550
+Wire Wire Line
+	5650 1750 6050 1750
+Wire Wire Line
+	6350 1600 6250 1600
+Wire Wire Line
+	6250 1600 6250 1150
+Wire Wire Line
+	6050 1750 6050 2200
+Connection ~ 6050 1750
+Wire Wire Line
+	8450 1850 8450 1650
+Wire Wire Line
+	8550 1700 8550 1300
+Wire Wire Line
+	2450 5750 2450 5650
+Wire Wire Line
+	3400 5950 3400 5650
+Wire Wire Line
+	2450 6550 2450 6900
+Wire Wire Line
+	3400 6250 3400 6900
+$Comp
+L power:GND #PWR09
+U 1 1 5D1F3146
+P 4650 6800
+F 0 "#PWR09" H 4650 6550 50  0001 C CNN
+F 1 "GND" H 4655 6627 50  0000 C CNN
+F 2 "" H 4650 6800 50  0001 C CNN
+F 3 "" H 4650 6800 50  0001 C CNN
+	1    4650 6800
+	1    0    0    -1  
+$EndComp
+Text Label 1350 6000 0    50   ~ 0
+Thermistor_Voltage
+Wire Wire Line
+	1200 4600 1200 4900
+Wire Wire Line
+	1200 5950 1200 6050
+Wire Wire Line
+	1200 6600 1200 7050
+Connection ~ 1200 6150
+Wire Wire Line
+	1200 6150 1200 6300
+Text Label 3900 1500 0    50   ~ 0
++5.5V
+Text Label 5400 5550 0    50   ~ 0
+Solar_Voltage
+Text GLabel 4100 1700 2    50   Input ~ 0
+5.5V
+Text GLabel 9000 4950 0    50   Input ~ 0
+3.3V
+Text GLabel 5650 1300 0    50   Input ~ 0
+3.3V
+Text GLabel 1200 4750 0    50   Input ~ 0
+3.3V
+Text GLabel 4050 4950 0    50   Input ~ 0
+3.3V
+Text GLabel 9000 5050 0    50   Input ~ 0
+CE
+Text GLabel 3100 3600 2    50   Input ~ 0
+CE
+Text GLabel 9000 5150 0    50   Input ~ 0
+Thermistor_Voltage
+Text GLabel 1400 6150 2    50   Input ~ 0
+Thermistor_Voltage
+Wire Wire Line
+	3900 1500 3900 1700
+Connection ~ 3900 1700
+Wire Wire Line
+	3900 1700 4100 1700
+Text Label 3100 3450 0    50   ~ 0
+CE
+Wire Wire Line
+	1200 6150 1350 6150
+Wire Wire Line
+	1350 6000 1350 6150
+Connection ~ 1350 6150
+Wire Wire Line
+	1350 6150 1400 6150
+Text GLabel 9000 5250 0    50   Input ~ 0
+Temperature_Voltage
+Text GLabel 9000 5350 0    50   Input ~ 0
+Solar_Voltage
+Text GLabel 5450 6050 2    50   Input ~ 0
+Solar_Voltage
+Wire Wire Line
+	6050 2500 6050 2800
+$Comp
+L Prototypedesign1extra:Battery BT1
+U 1 1 5D1EA4D2
+P 1000 2600
+F 0 "BT1" V 954 2728 50  0000 L CNN
+F 1 "Battery" V 1045 2728 50  0000 L CNN
+F 2 "Prototypedesign1:Prototypebatteryholder" H 850 2750 50  0001 C CNN
+F 3 "" H 850 2750 50  0001 C CNN
+	1    1000 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1000 2900 1000 3200
+Connection ~ 1000 3200
+Wire Wire Line
+	2750 3500 2750 3600
+Wire Wire Line
+	2750 3600 2950 3600
+Wire Wire Line
+	3100 3450 3050 3450
+Wire Wire Line
+	3050 3450 3050 3600
+Connection ~ 3050 3600
+Wire Wire Line
+	3050 3600 3100 3600
+Text GLabel 9000 4850 0    50   Input ~ 0
+5.5V
+$Comp
+L Prototypedesign1extra:Via J11
+U 1 1 5D20DCA0
+P 9000 4850
+F 0 "J11" H 9137 5075 50  0000 C CNN
+F 1 "Via" H 9137 4984 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 4950 50  0001 C CNN
+F 3 "" H 8950 4950 50  0001 C CNN
+	1    9000 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J12
+U 1 1 5D20DEAE
+P 9000 4950
+F 0 "J12" H 9137 5175 50  0000 C CNN
+F 1 "Via" H 9137 5084 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 5050 50  0001 C CNN
+F 3 "" H 8950 5050 50  0001 C CNN
+	1    9000 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J13
+U 1 1 5D20E03A
+P 9000 5050
+F 0 "J13" H 9137 5275 50  0000 C CNN
+F 1 "Via" H 9137 5184 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 5150 50  0001 C CNN
+F 3 "" H 8950 5150 50  0001 C CNN
+	1    9000 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J14
+U 1 1 5D20E1B2
+P 9000 5150
+F 0 "J14" H 9137 5375 50  0000 C CNN
+F 1 "Via" H 9137 5284 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 5250 50  0001 C CNN
+F 3 "" H 8950 5250 50  0001 C CNN
+	1    9000 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J15
+U 1 1 5D20E2D4
+P 9000 5250
+F 0 "J15" H 9137 5475 50  0000 C CNN
+F 1 "Via" H 9137 5384 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 5350 50  0001 C CNN
+F 3 "" H 8950 5350 50  0001 C CNN
+	1    9000 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J16
+U 1 1 5D20E416
+P 9000 5350
+F 0 "J16" H 9137 5575 50  0000 C CNN
+F 1 "Via" H 9137 5484 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8950 5450 50  0001 C CNN
+F 3 "" H 8950 5450 50  0001 C CNN
+	1    9000 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J4
+U 1 1 5D20E714
+P 2950 3700
+F 0 "J4" H 3087 3925 50  0000 C CNN
+F 1 "Via" H 3087 3834 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 2900 3800 50  0001 C CNN
+F 3 "" H 2900 3800 50  0001 C CNN
+	1    2950 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J2
+U 1 1 5D20F930
+P 1050 6050
+F 0 "J2" H 1188 5855 50  0000 C CNN
+F 1 "Via" H 1188 5946 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 1000 6150 50  0001 C CNN
+F 3 "" H 1000 6150 50  0001 C CNN
+	1    1050 6050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J6
+U 1 1 5D21437A
+P 4050 5050
+F 0 "J6" H 4187 5275 50  0000 C CNN
+F 1 "Via" H 4187 5184 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 4000 5150 50  0001 C CNN
+F 3 "" H 4000 5150 50  0001 C CNN
+	1    4050 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J7
+U 1 1 5D214C08
+P 5650 1550
+F 0 "J7" H 5788 1355 50  0000 C CNN
+F 1 "Via" H 5788 1446 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 5600 1650 50  0001 C CNN
+F 3 "" H 5600 1650 50  0001 C CNN
+	1    5650 1550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Prototypedesign1extra:Via J9
+U 1 1 5D2150DA
+P 8550 1300
+F 0 "J9" H 8688 1105 50  0000 C CNN
+F 1 "Via" H 8688 1196 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 8500 1400 50  0001 C CNN
+F 3 "" H 8500 1400 50  0001 C CNN
+	1    8550 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2950 3600 2950 3700
+Connection ~ 2950 3600
+Wire Wire Line
+	2950 3600 3050 3600
+$Comp
+L Prototypedesign1extra:Via J5
+U 1 1 5D219D0B
+P 3850 1550
+F 0 "J5" H 3988 1355 50  0000 C CNN
+F 1 "Via" H 3988 1446 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 3800 1650 50  0001 C CNN
+F 3 "" H 3800 1650 50  0001 C CNN
+	1    3850 1550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3850 1550 3850 1700
+Connection ~ 3850 1700
+Wire Wire Line
+	3850 1700 3900 1700
+Wire Wire Line
+	5600 1550 5650 1550
+Connection ~ 5650 1550
+Wire Wire Line
+	5650 1550 5650 1750
+Wire Wire Line
+	1050 6050 1200 6050
+Connection ~ 1200 6050
+Wire Wire Line
+	1200 6050 1200 6150
+$Comp
+L Prototypedesign1extra:Via J3
+U 1 1 5D2334B3
+P 1350 4900
+F 0 "J3" H 1487 5125 50  0000 C CNN
+F 1 "Via" H 1487 5034 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 1300 5000 50  0001 C CNN
+F 3 "" H 1300 5000 50  0001 C CNN
+	1    1350 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1350 4900 1200 4900
+Connection ~ 1200 4900
+Wire Wire Line
+	1200 4900 1200 5050
+$Comp
+L power:GND #PWR013
+U 1 1 5D1C18B9
+P 9750 2900
+F 0 "#PWR013" H 9750 2650 50  0001 C CNN
+F 1 "GND" H 9755 2727 50  0000 C CNN
+F 2 "" H 9750 2900 50  0001 C CNN
+F 3 "" H 9750 2900 50  0001 C CNN
+	1    9750 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 5D1ABC7F
+P 10050 2400
+F 0 "R5" H 9980 2354 50  0000 R CNN
+F 1 "1k" H 9980 2445 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 9980 2400 50  0001 C CNN
+F 3 "~" H 10050 2400 50  0001 C CNN
+	1    10050 2400
+	-1   0    0    1   
+$EndComp
+$Comp
+L Prototypedesign1extra:Connector8 J1
+U 1 1 5D239D08
+P 9450 5100
+F 0 "J1" H 10418 5150 50  0000 L CNN
+F 1 "Connector8" H 10418 5059 50  0000 L CNN
+F 2 "Prototypedesign1:SIP-8" H 9400 5600 50  0001 C CNN
+F 3 "" H 9400 5600 50  0001 C CNN
+	1    9450 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 4850 9250 4850
+Wire Wire Line
+	9000 4950 9250 4950
+Wire Wire Line
+	9000 5050 9250 5050
+Wire Wire Line
+	9000 5150 9250 5150
+Wire Wire Line
+	9000 5250 9250 5250
+Wire Wire Line
+	9000 5350 9250 5350
+Wire Wire Line
+	6050 1750 6200 1750
+Wire Wire Line
+	7250 1900 7350 1900
+Wire Wire Line
+	7350 1900 7350 2150
+Wire Wire Line
+	7350 2150 6200 2150
+Wire Wire Line
+	6200 2150 6200 1750
+Connection ~ 6200 1750
+Wire Wire Line
+	6200 1750 6350 1750
+$Comp
+L power:GND #PWR06
+U 1 1 5D1C2013
+P 4050 5700
+F 0 "#PWR06" H 4050 5450 50  0001 C CNN
+F 1 "GND" H 4055 5527 50  0000 C CNN
+F 2 "" H 4050 5700 50  0001 C CNN
+F 3 "" H 4050 5700 50  0001 C CNN
+	1    4050 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Current:NCS211 U3
+U 1 1 5D1B0D71
+P 4650 6250
+F 0 "U3" H 4700 6831 50  0000 C CNN
+F 1 "NCS211" H 4787 6740 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 4650 6250 50  0001 C CNN
+F 3 "http://www.onsemi.com/pub_link/Collateral/NCS210-D.PDF" H 4650 6250 50  0001 C CNN
+	1    4650 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C3
+U 1 1 5D1A8E20
+P 4050 5350
+F 0 "C3" H 4165 5396 50  0000 L CNN
+F 1 ".1uF" H 4165 5305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4088 5200 50  0001 C CNN
+F 3 "~" H 4050 5350 50  0001 C CNN
+	1    4050 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 5650 3750 6150
+Wire Wire Line
+	3750 6150 4250 6150
+Wire Wire Line
+	3750 6900 3750 6350
+Wire Wire Line
+	3750 6350 4250 6350
+Wire Wire Line
+	4050 4900 4050 5050
+Wire Wire Line
+	4050 5050 4050 5200
+Connection ~ 4050 5050
+Wire Wire Line
+	4050 5500 4050 5700
+Wire Wire Line
+	4050 5200 4650 5200
+Wire Wire Line
+	4650 5200 4650 5850
+Connection ~ 4050 5200
+Wire Wire Line
+	5150 6250 5200 6250
+Wire Wire Line
+	5200 6250 5200 6600
+Wire Wire Line
+	5200 6600 4650 6600
+Wire Wire Line
+	4650 6600 4650 6800
+Wire Wire Line
+	4650 6550 4650 6600
+Connection ~ 4650 6600
+$Comp
+L Prototypedesign1extra:Via J8
+U 1 1 5D213A8B
+P 5400 5900
+F 0 "J8" H 5537 6125 50  0000 C CNN
+F 1 "Via" H 5537 6034 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 5350 6000 50  0001 C CNN
+F 3 "" H 5350 6000 50  0001 C CNN
+	1    5400 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 6050 5400 6050
+Wire Wire Line
+	5400 6050 5400 5900
+Connection ~ 5400 6050
+Wire Wire Line
+	5400 6050 5450 6050
+Wire Wire Line
+	5400 5900 5400 5550
+Connection ~ 5400 5900
+Connection ~ 3400 5650
+Wire Wire Line
+	3400 5650 3750 5650
+Wire Wire Line
+	2450 5650 3400 5650
+Connection ~ 3400 6900
+Wire Wire Line
+	3400 6900 3750 6900
+Wire Wire Line
+	2450 6900 3400 6900
+Connection ~ 2450 1700
+Wire Wire Line
+	2450 1700 2500 1700
+Wire Wire Line
+	2050 1700 2450 1700
+Wire Wire Line
+	2450 2100 2450 1700
+Wire Wire Line
+	2750 2100 2450 2100
+Wire Wire Line
+	2750 2850 2750 2100
+Wire Wire Line
+	9750 2550 9750 2650
+Wire Wire Line
+	9750 2150 10050 2150
+Wire Wire Line
+	10050 2150 10050 2250
+Wire Wire Line
+	9750 2150 9750 2250
+Wire Wire Line
+	10050 2550 10050 2650
+Wire Wire Line
+	10050 2650 9750 2650
+Connection ~ 9750 2650
+Wire Wire Line
+	9750 2650 9750 2900
+Text Notes 900  1150 0    197  ~ 0
+Step-Up Voltage Regulator
+Text Notes 1600 4500 0    197  ~ 0
+Irradiance Sensor
+Connection ~ 9750 2150
+Connection ~ 8550 1300
+Wire Wire Line
+	7900 2000 8650 2000
+Wire Wire Line
+	9750 2000 9750 2150
+Wire Wire Line
+	9750 2000 10300 2000
+Connection ~ 9750 2000
+Wire Wire Line
+	10300 1750 10300 2000
+Wire Wire Line
+	8700 1350 10300 1350
+Wire Wire Line
+	10300 1350 10300 1450
+Wire Wire Line
+	9650 1650 9650 1550
+Connection ~ 9650 1650
+Wire Wire Line
+	9800 1650 9650 1650
+Wire Wire Line
+	8700 1300 8700 1200
+Connection ~ 8700 1300
+Wire Wire Line
+	8550 1300 8700 1300
+$Comp
+L Prototypedesign1extra:Via J18
+U 1 1 5D21343C
+P 9800 1650
+F 0 "J18" H 9937 1875 50  0000 C CNN
+F 1 "Via" H 9937 1784 50  0000 C CNN
+F 2 "Prototypedesign1:Via" H 9750 1750 50  0001 C CNN
+F 3 "" H 9750 1750 50  0001 C CNN
+	1    9800 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 2000 9750 2000
+Wire Wire Line
+	8700 1350 8700 1300
+Wire Wire Line
+	9650 1700 9650 1650
+Text GLabel 9650 1600 0    50   Input ~ 0
+3.3V
+Text GLabel 9050 1200 2    50   Input ~ 0
+Temperature_Voltage
+Wire Wire Line
+	9000 1200 9050 1200
+Connection ~ 9000 1200
+Wire Wire Line
+	9000 950  9000 1200
+Text Label 9000 950  0    50   ~ 0
+Temperature_Voltage
+Wire Wire Line
+	8700 1200 9000 1200
+Wire Wire Line
+	8550 1700 8650 1700
+Wire Wire Line
+	9450 1700 9650 1700
+Wire Wire Line
+	8650 1850 8450 1850
+$Comp
+L power:+3.3V #PWR014
+U 1 1 5D1C0AC8
+P 9650 1550
+F 0 "#PWR014" H 9650 1400 50  0001 C CNN
+F 1 "+3.3V" H 9665 1723 50  0000 C CNN
+F 2 "" H 9650 1550 50  0001 C CNN
+F 3 "" H 9650 1550 50  0001 C CNN
+	1    9650 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Prototypedesign1extra:MCP6L01 U5
+U 1 1 5D1B6631
+P 9050 1850
+F 0 "U5" H 9050 2265 50  0000 C CNN
+F 1 "MCP6L01" H 9050 2174 50  0000 C CNN
+F 2 "Prototypedesign1:SOT-23-5_HandSoldering-MCP6L01" H 8800 2150 50  0001 C CNN
+F 3 "" H 8800 2150 50  0001 C CNN
+	1    9050 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5D1AB1DC
+P 10300 1600
+F 0 "R3" V 10093 1600 50  0000 C CNN
+F 1 "1k" V 10184 1600 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 10230 1600 50  0001 C CNN
+F 3 "~" H 10300 1600 50  0001 C CNN
+	1    10300 1600
+	-1   0    0    1   
+$EndComp
+Text Notes 6400 3150 0    197  ~ 0
+Temperature Sensor
+Wire Wire Line
+	7900 1150 7900 2000
+Wire Wire Line
+	6250 1150 7900 1150
+Wire Wire Line
+	7700 1600 7700 2100
+Wire Wire Line
+	8150 1650 8150 1750
+Wire Wire Line
+	8450 1650 8150 1650
+Wire Wire Line
+	7250 1600 7700 1600
+$Comp
+L power:GND #PWR011
+U 1 1 5D1C1B46
+P 8150 1750
+F 0 "#PWR011" H 8150 1500 50  0001 C CNN
+F 1 "GND" H 8155 1577 50  0000 C CNN
+F 2 "" H 8150 1750 50  0001 C CNN
+F 3 "" H 8150 1750 50  0001 C CNN
+	1    8150 1750
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

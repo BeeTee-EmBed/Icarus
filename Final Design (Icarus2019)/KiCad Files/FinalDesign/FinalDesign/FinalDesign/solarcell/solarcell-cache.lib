@@ -1,0 +1,50 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# Prototypedesign1extra_3pin
+#
+DEF Prototypedesign1extra_3pin U 0 40 Y Y 1 F N
+F0 "U" -100 200 50 H V C CNN
+F1 "Prototypedesign1extra_3pin" 100 -200 50 H V C CNN
+F2 "" -100 200 50 H I C CNN
+F3 "" -100 200 50 H I C CNN
+DRAW
+S -100 150 100 -150 0 1 0 N
+X ~ 1 -200 100 100 R 50 50 1 1 I
+X ~ 2 -200 0 100 R 50 50 1 1 I
+X ~ 3 -200 -100 100 R 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+# Prototypedesign1extra_KXOB25-14X1F
+#
+DEF Prototypedesign1extra_KXOB25-14X1F U 0 40 Y Y 1 F N
+F0 "U" -250 200 50 H V C CNN
+F1 "Prototypedesign1extra_KXOB25-14X1F" 0 -200 50 H V C CNN
+F2 "" -250 200 50 H I C CNN
+F3 "" -250 200 50 H I C CNN
+DRAW
+S -300 150 300 -150 0 1 0 N
+X V+ 1 -400 0 100 R 50 50 1 1 P
+X V- 2 400 0 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Prototypedesign1extra_NXFT15XH103
+#
+DEF Prototypedesign1extra_NXFT15XH103 RT 0 40 Y Y 1 F N
+F0 "RT" 50 250 50 H V C CNN
+F1 "Prototypedesign1extra_NXFT15XH103" 300 -300 50 H V C CNN
+F2 "" 50 250 50 H I C CNN
+F3 "" 50 250 50 H I C CNN
+DRAW
+C 0 0 100 0 1 0 N
+P 3 0 1 0 0 -100 0 -200 350 -200 N
+P 3 0 1 0 0 100 0 200 350 200 N
+P 5 0 1 0 0 100 -50 50 50 0 -50 -50 0 -100 N
+X ~ 1 450 -200 100 L 50 50 1 1 P
+X ~ 2 450 200 100 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+#End Library
