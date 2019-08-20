@@ -209,6 +209,8 @@ void setScreen() {
     bool tempScreen = false;
     bool maxScreen = false;
     
+    irradiance *= 0.1;
+    
     if (0 == digitalRead(MAIN_BUTTON)) {
         screen = MAIN;
     }
