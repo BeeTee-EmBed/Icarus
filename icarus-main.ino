@@ -39,6 +39,8 @@ double irradiance = 0.0;
 double theta = 0.0;                                                                                                
 int degreeRange = 90;
 
+double normalizingAccel = 0.0;
+
 double maxAngle = 0.0;
 double maxIrradiance = 0.0;
 
@@ -77,6 +79,10 @@ void setup()   {
     }
     display.display();
     delay(2000);
+    
+    accel.read();
+    normalizingAccel = accel.x / adcRange * degreeRange;
+    
     display.clearDisplay();
 }
 
@@ -84,7 +90,7 @@ void loop() {
     accel.read();    
     irradiance = getIrradiance();
     ambientTemp = getAmbientTemp();
-    theta = accel.x / adcRange * degreeRange * -1; 
+    theta = accel.x / adcRange * degreeRange * -1 + normalizingAccel; 
     
     irradiance = round(irradiance * factorRound) / factorRound + 85;                                     
     theta = round(theta * factorRound) / factorRound;
