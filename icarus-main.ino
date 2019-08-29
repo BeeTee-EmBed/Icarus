@@ -162,8 +162,10 @@ double getShortCurrent() {
   const double shuntResistance = 0.08;
   const double gain = 500.0;
 
+  //removes the oldest reading from the total, in order to account for new reading instead
   total -= values[arrIndex];
-  double cellVoltage = analogRead(REFERENCE_CELL_OUTPUT) * supplyVoltage / adcLevel;                                        //reads analog reading and converts ADC value to voltage using max volts and the 12-bit value
+
+  double cellVoltage = analogRead(REFERENCE_CELL_OUTPUT) * supplyVoltage / adcLevel;                                        
   values[arrIndex] = cellVoltage;
   total += cellVoltage;
   arrIndex++;
