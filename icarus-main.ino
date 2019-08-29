@@ -25,6 +25,7 @@ static const int factorRound = 10;
 static const double supplyVoltage = 3.3;                                                                                        
 static const int adcLevel = 4095;                                                                                        
 static const double adcRange = -1024;
+static const int calibrationOffset = 85;
 
 
 double values[numValues];
@@ -81,6 +82,8 @@ void setup()   {
     delay(2000);
     
     accel.read();
+
+    //to do: this zeroing function accounts for the lack of hard-mounting of the accelerometer. remove once secure fitting and alignment is finished
     normalizingAccel = accel.x / adcRange * degreeRange;
     
     display.clearDisplay();
@@ -92,7 +95,7 @@ void loop() {
     ambientTemp = getAmbientTemp();
     theta = accel.x / adcRange * degreeRange * -1 + normalizingAccel; 
     
-    irradiance = round(irradiance * factorRound) / factorRound + 85;                                     
+    irradiance = round(irradiance * factorRound) / factorRound + calibrationOffset;                                     
     theta = round(theta * factorRound) / factorRound;
     ambientTemp = round(ambientTemp * factorRound) / factorRound;
     thermistorTemp = round(thermistorTemp * factorRound) / factorRound;
@@ -116,6 +119,8 @@ double getIrradiance() {
   thermistorVoltage = getThermistorVoltage();
   thermistorTemp = getThermistorTemp(thermistorVoltage);
   measuredShortCurrent = getShortCurrent();   
+
+  //this is the given equation for which variables to use to calculate the irradiance given by electrical engineering
   irradiance = refIrradiance * measuredShortCurrent / referenceShortCurrent * (1 - tempCoefficient * (thermistorTemp - refThermTemp));
                                                                                                                     
   irradiance = round(irradiance * factorRound) / factorRound;                                                      
@@ -132,6 +137,7 @@ double getThermistorTemp(double thermistorVoltage) {
   double temp;
   const double kelvinConversion = 273.15;
 
+  //these equations were given as the way to calculate the thermistor resistance, and how to use that to find the temperature of the thermistor
   thermResistance = (supplyVoltage - thermistorVoltage) / (thermistorVoltage / voltDivResistor);
   temp = thermB * (refTemp + kelvinConversion) / (log(thermResistance / voltDivResistor) * (refTemp + kelvinConversion) + thermB) - kelvinConversion;
   temp = round(temp * factorRound) / factorRound;                                                                      
@@ -141,7 +147,9 @@ double getThermistorTemp(double thermistorVoltage) {
 //reads the analog input from the TMP36 analog sensor, and returns the temperature in Celsius
 double getAmbientTemp() {
   double analogTempValue = analogRead(AMBIENT_OUTPUT);
-  return ((analogTempValue * supplyVoltage / adcLevel) / .03 - 50);                                                               //this is the temperature equation for the TMP36 sensor
+
+  //this is the temperature equation for the TMP36 sensor
+  return ((analogTempValue * supplyVoltage / adcLevel) / .03 - 50);                                                               
 }
 
 //gets the voltage reading from the thermistor
@@ -172,7 +180,7 @@ double getShortCurrent() {
 void findMax() {
     display.println("Please rotate Icarus around its X-axis in 5...");
     display.display();
-    delay(4000);
+    delay(3000);
     display.clearDisplay();
     
     for (int i = 4; i > 0; i--) {
@@ -187,12 +195,15 @@ void findMax() {
     
     for (int i = 0; i < 10; i++) {
         irradiance = getIrradiance();
-        theta = accel.x / adcRange * degreeRange;                                                                       //scales the ADC value read from accelerometer to an angle measurement in positive
-        
-        irradiance = round(irradiance * factorRound) / factorRound;                                                                       //rounds the degrees to the nearest tenth
+
+        //scales the ADC value read from accelerometer to an angle measurement in positive
+        theta = accel.x / adcRange * degreeRange;                    
+
+        irradiance = round(irradiance * factorRound) / factorRound;                                                                 
         theta = round(theta * factorRound) / factorRound;
         
-        if (irradiance > maxIrradiance) {                                                                               //compares the values read with the current, and saves as new max and angle if the values are greate
+        //compares the values read with the current, and saves as new max and angle if the values are greate
+        if (irradiance > maxIrradiance) {                                                                               
             maxIrradiance = irradiance;
             maxAngle = theta;
         }
@@ -224,7 +235,7 @@ void setScreen() {
     else if (0 == digitalRead(MAX_BUTTON)) {
         screen = MAX;
     }
-    //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info
+    //if screen is MAIN (1), display's main screen info; if TEMP(2), temperature info, if MAX(2), the max function is called
     switch (screen) {                                      
         case MAIN:
             mainScreen = true;
